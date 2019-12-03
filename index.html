@@ -3,10 +3,86 @@
   <head>
     <title>Microsoft Cognitive Services Speech SDK JavaScript Quickstart</title>
     <meta charset="utf-8" />
+    <link href="index.css" rel="stylesheet" type="text/css" />
   </head>
   <body
     style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; font-size:13px;"
   >
+  <div id="content-main">
+
+      <header class="page-header">
+        <h1>Dictée d'équation mathématique</h1>
+      </header>
+      
+      <div class="padding">
+          Pour écrire un opérateur mathématique à la voix, <br /> dites les mots-clés suivants :<br /><br />
+        <div class="category">
+  
+          <div class="buttons">
+            <button class="operator-block" id="left">
+              <img src="Images/back.png" />
+              <br />Gauche
+            </button>
+            <button class="operator-block" id="right">
+              <img src="Images/next.png" />
+              <br />Droite
+            </button>
+          </div>
+          <div class="titlediv">
+            <p class="title">Position</p>
+          </div>
+        </div>
+        <div class="category">
+  
+  
+          <div class="buttons">
+            <button class="operator-block" id="plus">
+              <img src="Images/plus.png" />
+              <br />Plus
+            </button>
+            <button class="operator-block" id="moins">
+              <img src="Images/moins.png" />
+              <br />Moins
+            </button>
+            <button class="operator-block" id="fois">
+              <img src="Images/fois.png" />
+              <br />Fois
+            </button>
+            <button class="operator-block" id="egale">
+              <img src="Images/egal.png" />
+              <br />Égale
+            </button>
+            <button class="operator-block" id="different">
+              <img src="Images/different.png" />
+              <br />Différent
+            </button>
+          </div>
+          <div class="titlediv">
+            <p class="title">Opérateur</p>
+          </div>
+        </div>
+      </div>
+  
+      <div id="latex-content">
+          <div id="latex-image">
+            Image de l'équation ici
+          </div>
+          <div id="latex-code">
+              Code en latex :
+              <div id="latex-code-text">
+                  \frac{k(k+1)+2(k+1)}{2}
+              </div>
+          </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+    
     <!-- <uidiv> -->
     <div id="warning">
       <h1 style="font-weight:500;">
