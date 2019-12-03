@@ -1,17 +1,17 @@
-#content-header {
+#header {
     background: #2a8dd4;
     color: #fff;
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 80px;
-    overflow: hidden;
+    margin-bottom: 30px;
+    font-size: 25px;
+    line-height: 80px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 #content-main {
     font-family: Calibri;
-    background: #fff;
+    background: rgb(252, 252, 252);
     position: fixed;
     top: 0;
     left: 0;
@@ -19,6 +19,13 @@
     bottom: 0;
     overflow: auto;
     text-align: center;
+
+    border: 1px solid #2a8dd4;
+    border-radius: 20px;
+    width: 1000px;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .padding {
@@ -84,7 +91,9 @@
 #latex-image {
     width: 400px;
     height: 150px;
+    line-height: 150px;
     background-color: #a1a1a1;
+    border-radius: 5px;
     vertical-align: top;
 }
 
