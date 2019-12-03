@@ -97,11 +97,29 @@
     vertical-align: top;
 }
 
+#latex-code-title {
+    margin-top: 7px;
+}
+
 #latex-code-text {
     display: inline-block;
     background-color: #d6d6d6;
     font-family: 'Courier New', Courier, monospace;
     padding: 4px;
+    margin-top: 4px;
+    margin-right: 4px;
+    margin-left: 4px;
+    border-radius: 4px;
+    width: 200px;
+    word-break: break-all;
+    vertical-align: top;
+}
+
+.copy-button {
+    text-align: center;
+    padding: 5px 5px;
+    font-size: 11px;
+    border: 1px solid #bdbdbd;
     margin-top: 4px;
     border-radius: 4px;
 }
