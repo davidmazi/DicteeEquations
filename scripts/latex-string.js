@@ -21,18 +21,14 @@ function initDicoSymboleLatex() {
     dicoSymboleLatex.set("huit", "8");
     dicoSymboleLatex.set("neuf", "9");
 
-    dicoSymboleLatex.set("plus", "+");
-    dicoSymboleLatex.set("moins", "-");
-    dicoSymboleLatex.set("egale", "=");
     dicoSymboleLatex.set("ne", "\\ne");
     dicoSymboleLatex.set("pi", "\\pi");
     dicoSymboleLatex.set("fois", "*");
     dicoSymboleLatex.set("div", "\\div");
     dicoSymboleLatex.set("sur", "}{");
-    dicoSymboleLatex.set("factoriel", "!");
     dicoSymboleLatex.set("parenthese", "parenthese");
-    dicoSymboleLatex.set("ouvre", "(");
-    dicoSymboleLatex.set("ferme", ")");
+    dicoSymboleLatex.set("open", "(");
+    dicoSymboleLatex.set("closed", ")");
     dicoSymboleLatex.set("index", "_{");
     dicoSymboleLatex.set("indice", "_");
     dicoSymboleLatex.set("puissance", "^");
