@@ -26,12 +26,14 @@
     margin: auto;
     margin-top: 20px;
     margin-bottom: 20px;
+    
+    font-size: 15px;
 }
 
 .padding {
     display: inline-block;
     padding: 15px;
-    width: 300px;
+    width: 315px;
     text-align: left;
     vertical-align: top;
     margin-right: 75px;
@@ -41,15 +43,33 @@
     display: inline-block;
     text-align: center;
     padding: 5px 0px;
-    width: 50px;
+    width: 70px;
     font-size: 11px;
-    border: 1px solid #bdbdbd;
+    border: 1px solid #abc2e7;
     margin-top: 4px;
     border-radius: 4px;
+    background-color: #e7edf7;
 }
 
 .operator-block img {
-    width: 23px;
+    width: 30px;
+    padding: 3px;
+}
+
+.operator-block-big {
+    display: inline-block;
+    text-align: center;
+    padding: 5px 0px;
+    width: 75px;
+    font-size: 11px;
+    border: 1px solid #abc2e7;
+    margin-top: 4px;
+    border-radius: 4px;
+    background-color: #e7edf7;
+}
+
+.operator-block-big img {
+    width: 50px;
     padding: 3px;
 }
 
@@ -60,8 +80,9 @@
     -ms-transform: rotate(-90deg);
     -o-transform: rotate(-90deg);
     transform: rotate(-90deg);
-    font-size: 13px;
-    color: #a1a1a1;
+    font-size: 15px;
+    color: #2a8dd4;
+    font-weight: 800;
 }
 
 .titlediv {
@@ -77,10 +98,10 @@
 
 .buttons {
     float: left;
-    margin-left: 14px;
+    margin-left: 17px;
     padding-left: 4px;
-    border-top: 1px solid #a1a1a1;
-    border-left: 1px solid #a1a1a1;
+    border-top: 1px solid #95b8d1;
+    border-left: 1px solid #95b8d1;
     width: 95%;
 }
 
