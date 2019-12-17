@@ -68,10 +68,10 @@ function format(rawEquation) {
         if (isNaN(equationElem)){
             if(dicoOp.get(rawEquationTab[i])=="parenthese")
                 parentheseOrCrochet = "p";
-            if(dicoOp.get(rawEquationTab[i])=="crochet")
+            else if(dicoOp.get(rawEquationTab[i])=="crochet")
                 parentheseOrCrochet = "c";
             else{
-                if(parentheseOrCrochet.length!=0){
+                if(parentheseOrCrochet.length!=0 && (dicoOp.get(rawEquationTab[i])=="open" || dicoOp.get(rawEquationTab[i])=="closed")){
                     equationElem = parentheseOrCrochet+dicoOp.get(rawEquationTab[i]);
                 }
                 else{
