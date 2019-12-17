@@ -47,24 +47,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var audioConfig = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
     recognizer = new SpeechSDK.SpeechRecognizer(speechConfig, audioConfig);
 
-    recognizer.recognizeOnceAsync(
-      function(result) {
-        startRecognizeOnceAsyncButton.disabled = false;
-        phraseDiv.innerHTML += result.text;
-        window.console.log(result);
-
-        recognizer.close();
-        recognizer = undefined;
-      },
-      function(err) {
-        startRecognizeOnceAsyncButton.disabled = false;
-        phraseDiv.innerHTML += err;
-        window.console.log(err);
-
-        recognizer.close();
-        recognizer = undefined;
-      }
-    );
+    recognizeSpeech(recognizer);
   });
 
   if (!!window.SpeechSDK) {
@@ -80,3 +63,32 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
 });
+
+function recognizeSpeech(recognizer) {
+  recognizer.recognizeOnceAsync(
+    function(result) {
+      startRecognizeOnceAsyncButton.disabled = false;
+      result.text.toLowerCase().includes("fin")
+        ? (phraseDiv.innerHTML += result.text.substring(
+            0,
+            result.text.indexOf("fin")
+          ))
+        : (phraseDiv.innerHTML += result.text + " ");
+
+      if (!result.text.toLowerCase().includes("fin")) {
+        return recognizeSpeech(recognizer);
+      }
+
+      recognizer.close();
+      recognizer = undefined;
+    },
+    function(err) {
+      startRecognizeOnceAsyncButton.disabled = false;
+      phraseDiv.innerHTML += err;
+      window.console.log(err);
+
+      recognizer.close();
+      recognizer = undefined;
+    }
+  );
+}
