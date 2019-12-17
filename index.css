@@ -1,0 +1,146 @@
+#header {
+    background: #2a8dd4;
+    color: #fff;
+    width: 100%;
+    height: 80px;
+    margin-bottom: 30px;
+    font-size: 25px;
+    line-height: 80px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+#content-main {
+    font-family: Calibri;
+    background: rgb(252, 252, 252);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: auto;
+    text-align: center;
+
+    border: 1px solid #2a8dd4;
+    border-radius: 20px;
+    width: 1000px;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    
+    font-size: 15px;
+}
+
+.padding {
+    display: inline-block;
+    padding: 15px;
+    width: 315px;
+    text-align: left;
+    vertical-align: top;
+    margin-right: 75px;
+}
+
+.operator-block {
+    display: inline-block;
+    text-align: center;
+    padding: 5px 0px;
+    width: 70px;
+    font-size: 11px;
+    border: 1px solid #abc2e7;
+    margin-top: 4px;
+    border-radius: 4px;
+    background-color: #e7edf7;
+}
+
+.operator-block img {
+    width: 30px;
+    padding: 3px;
+}
+
+.operator-block-big {
+    display: inline-block;
+    text-align: center;
+    padding: 5px 0px;
+    width: 75px;
+    font-size: 11px;
+    border: 1px solid #abc2e7;
+    margin-top: 4px;
+    border-radius: 4px;
+    background-color: #e7edf7;
+}
+
+.operator-block-big img {
+    width: 50px;
+    padding: 3px;
+}
+
+.title {
+    text-align: center;
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+    font-size: 15px;
+    color: #2a8dd4;
+    font-weight: 800;
+}
+
+.titlediv {
+    margin-top: -35px;
+    float: left;
+    width: 5%;
+}
+
+.category {
+    width: 100%;
+    height: 100%;
+}
+
+.buttons {
+    float: left;
+    margin-left: 17px;
+    padding-left: 4px;
+    border-top: 1px solid #95b8d1;
+    border-left: 1px solid #95b8d1;
+    width: 95%;
+}
+
+#latex-content {
+    display: inline-block;
+}
+
+#latex-image {
+    width: 400px;
+    height: 150px;
+    line-height: 150px;
+    background-color: #a1a1a1;
+    border-radius: 5px;
+    vertical-align: top;
+}
+
+#latex-code-title {
+    margin-top: 7px;
+}
+
+#latex-code-text {
+    display: inline-block;
+    background-color: #d6d6d6;
+    font-family: 'Courier New', Courier, monospace;
+    padding: 4px;
+    margin-top: 4px;
+    margin-right: 4px;
+    margin-left: 4px;
+    border-radius: 4px;
+    width: 200px;
+    word-break: break-all;
+    vertical-align: top;
+}
+
+.copy-button {
+    text-align: center;
+    padding: 5px 5px;
+    font-size: 11px;
+    border: 1px solid #bdbdbd;
+    margin-top: 4px;
+    border-radius: 4px;
+}
