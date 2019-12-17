@@ -12,13 +12,17 @@ document.addEventListener("DOMContentLoaded", function() {
   startRecognizeOnceAsyncButton = document.getElementById(
     "startRecognizeOnceAsyncButton"
   );
-  subscriptionKey = document.getElementById("subscriptionKey");
-  serviceRegion = document.getElementById("serviceRegion");
-  phraseDiv = document.getElementById("phraseDiv");
+  subscriptionKey = config.apiKey;
+  serviceRegion = "westus";
+
+  initDicoOp();
+
+  initDicoSymboleLatex();
+  initDicoExpressionLatex();
+  initDicoSequenceurLatex();
 
   startRecognizeOnceAsyncButton.addEventListener("click", function() {
     startRecognizeOnceAsyncButton.disabled = true;
-    phraseDiv.innerHTML = "";
 
     // if we got an authorization token, use the token. Otherwise use the provided subscription key
     var speechConfig;
@@ -28,18 +32,9 @@ document.addEventListener("DOMContentLoaded", function() {
         serviceRegion.value
       );
     } else {
-      if (
-        subscriptionKey.value === "" ||
-        subscriptionKey.value === "subscription"
-      ) {
-        alert(
-          "Please enter your Microsoft Cognitive Services Speech subscription key!"
-        );
-        return;
-      }
       speechConfig = SpeechSDK.SpeechConfig.fromSubscription(
-        subscriptionKey.value,
-        serviceRegion.value
+        config.apiKey,
+        "westus"
       );
     }
 
@@ -54,9 +49,6 @@ document.addEventListener("DOMContentLoaded", function() {
     SpeechSDK = window.SpeechSDK;
     startRecognizeOnceAsyncButton.disabled = false;
 
-    document.getElementById("content").style.display = "block";
-    document.getElementById("warning").style.display = "none";
-
     // in case we have a function for getting an authorization token, call it.
     if (typeof RequestAuthorizationToken === "function") {
       RequestAuthorizationToken();
@@ -65,15 +57,16 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 function recognizeSpeech(recognizer) {
+  clearLatexCodeText();
   recognizer.recognizeOnceAsync(
     function(result) {
       startRecognizeOnceAsyncButton.disabled = false;
+      console.log(`Resultat MS : ${result.text}`);
       result.text.toLowerCase().includes("fin")
-        ? (phraseDiv.innerHTML += result.text.substring(
-            0,
-            result.text.indexOf("fin")
-          ))
-        : (phraseDiv.innerHTML += result.text + " ");
+        ? changeLatexCodeText(
+            latex(format(result.text.substring(0, result.text.indexOf("fin"))))
+          )
+        : changeLatexCodeText(latex(format(result.text + " ")));
 
       if (!result.text.toLowerCase().includes("fin")) {
         return recognizeSpeech(recognizer);
@@ -84,11 +77,21 @@ function recognizeSpeech(recognizer) {
     },
     function(err) {
       startRecognizeOnceAsyncButton.disabled = false;
-      phraseDiv.innerHTML += err;
+      changeLatexCodeText(err);
       window.console.log(err);
 
       recognizer.close();
       recognizer = undefined;
     }
   );
+}
+
+function changeLatexCodeText(textToPrint) {
+  element = document.getElementById("latex-code-text");
+  element.innerHTML += textToPrint;
+}
+
+function clearLatexCodeText() {
+  element = document.getElementById("latex-code-text");
+  element.innerHTML = "";
 }
