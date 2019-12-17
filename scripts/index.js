@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function() {
     speechConfig.speechRecognitionLanguage = "fr-FR";
     var audioConfig = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
     recognizer = new SpeechSDK.SpeechRecognizer(speechConfig, audioConfig);
-
+    clearLatexCodeText();
     recognizeSpeech(recognizer);
   });
 
@@ -57,7 +57,6 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 function recognizeSpeech(recognizer) {
-  clearLatexCodeText();
   recognizer.recognizeOnceAsync(
     function(result) {
       startRecognizeOnceAsyncButton.disabled = false;
