@@ -26,9 +26,10 @@ function initDicoSymboleLatex() {
     dicoSymboleLatex.set("fois", "*");
     dicoSymboleLatex.set("div", "\\div");
     dicoSymboleLatex.set("sur", "}{");
-    dicoSymboleLatex.set("parenthese", "parenthese");
-    dicoSymboleLatex.set("open", "(");
-    dicoSymboleLatex.set("closed", ")");
+    dicoSymboleLatex.set("pOpen", "(");
+    dicoSymboleLatex.set("pClosed", ")");
+    dicoSymboleLatex.set("cOpen", "[");
+    dicoSymboleLatex.set("cClosed", "]");
     dicoSymboleLatex.set("index", "_{");
     dicoSymboleLatex.set("indice", "_");
     dicoSymboleLatex.set("puissance", "^");

@@ -31,6 +31,7 @@ function initDicoOp() {
 
     dicoOp.set("parenthèse", "parenthese");
     dicoOp.set("parenthèses", "parenthese");
+    dicoOp.set("crochet","crochet");
 
     dicoOp.set("ouvert", "open");
     dicoOp.set("ouverts", "open");
@@ -61,10 +62,25 @@ function initDicoOp() {
 function format(rawEquation) {
     var rawEquationTab = rawEquation.toLowerCase().split(" ");
     var formatEquation = [];
+    var parentheseOrCrochet = "";
     for (var i = 0; i < rawEquationTab.length; i++) {
         var equationElem = rawEquationTab[i];
-        if (isNaN(equationElem))
-            equationElem = dicoOp.get(rawEquationTab[i]);
+        if (isNaN(equationElem)){
+            if(dicoOp.get(rawEquationTab[i])=="parenthese")
+                parentheseOrCrochet = "p";
+            if(dicoOp.get(rawEquationTab[i])=="crochet")
+                parentheseOrCrochet = "c";
+            else{
+                if(parentheseOrCrochet.length!=0){
+                    equationElem = parentheseOrCrochet+dicoOp.get(rawEquationTab[i]);
+                }
+                else{
+                    equationElem = dicoOp.get(rawEquationTab[i]);
+                }                    
+                parentheseOrCrochet = "";
+            }
+        }
+            
         if (equationElem != undefined) {
             formatEquation.push(equationElem);
         }
