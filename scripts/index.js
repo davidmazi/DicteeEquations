@@ -8,55 +8,64 @@ var authorizationToken;
 var SpeechSDK;
 var recognizer;
 
-document.addEventListener("DOMContentLoaded", function() {
-  startRecognizeOnceAsyncButton = document.getElementById(
-    "startRecognizeOnceAsyncButton"
-  );
-  subscriptionKey = config.apiKey;
-  serviceRegion = "westus";
+var handlerFiredOnce = false;
 
-  initDicoOp();
+document.addEventListener("DOMContentLoaded", contentLoadedHandler);
 
-  initDicoSymboleLatex();
-  initDicoExpressionLatex();
-  initDicoSequenceurLatex();
+var contentLoadedHandler = function() {
+  if (!handlerFiredOnce) {
+    console.log("loaded");
+    startRecognizeOnceAsyncButton = document.getElementById(
+      "startRecognizeOnceAsyncButton"
+    );
+    subscriptionKey = config.apiKey;
+    serviceRegion = "westus";
 
-  startRecognizeOnceAsyncButton.addEventListener("click", function() {
-    startRecognizeOnceAsyncButton.disabled = true;
+    initDicoOp();
 
-    // if we got an authorization token, use the token. Otherwise use the provided subscription key
-    var speechConfig;
-    if (authorizationToken) {
-      speechConfig = SpeechSDK.SpeechConfig.fromAuthorizationToken(
-        authorizationToken,
-        serviceRegion.value
-      );
-    } else {
-      speechConfig = SpeechSDK.SpeechConfig.fromSubscription(
-        config.apiKey,
-        "westus"
-      );
+    initDicoSymboleLatex();
+    initDicoExpressionLatex();
+    initDicoSequenceurLatex();
+
+    startRecognizeOnceAsyncButton.addEventListener("click", function() {
+      startRecognizeOnceAsyncButton.disabled = true;
+
+      // if we got an authorization token, use the token. Otherwise use the provided subscription key
+      var speechConfig;
+      if (authorizationToken) {
+        speechConfig = SpeechSDK.SpeechConfig.fromAuthorizationToken(
+          authorizationToken,
+          serviceRegion.value
+        );
+      } else {
+        speechConfig = SpeechSDK.SpeechConfig.fromSubscription(
+          config.apiKey,
+          "westus"
+        );
+      }
+
+      speechConfig.speechRecognitionLanguage = "fr-FR";
+      var audioConfig = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
+      recognizer = new SpeechSDK.SpeechRecognizer(speechConfig, audioConfig);
+      clearLatexCodeText();
+      recognizeSpeech(recognizer);
+    });
+
+    if (!!window.SpeechSDK) {
+      SpeechSDK = window.SpeechSDK;
+      startRecognizeOnceAsyncButton.disabled = false;
+
+      // in case we have a function for getting an authorization token, call it.
+      if (typeof RequestAuthorizationToken === "function") {
+        RequestAuthorizationToken();
+      }
     }
-
-    speechConfig.speechRecognitionLanguage = "fr-FR";
-    var audioConfig = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
-    recognizer = new SpeechSDK.SpeechRecognizer(speechConfig, audioConfig);
-    clearLatexCodeText();
-    recognizeSpeech(recognizer);
-  });
-
-  if (!!window.SpeechSDK) {
-    SpeechSDK = window.SpeechSDK;
-    startRecognizeOnceAsyncButton.disabled = false;
-
-    // in case we have a function for getting an authorization token, call it.
-    if (typeof RequestAuthorizationToken === "function") {
-      RequestAuthorizationToken();
-    }
+    handlerFiredOnce = true;
   }
-});
+};
 
 function recognizeSpeech(recognizer) {
+  console.log("~~~~~Started Recording~~~~~");
   startRecognizeOnceAsyncButton.disabled = true;
   recognizer.recognizeOnceAsync(
     function(result) {
