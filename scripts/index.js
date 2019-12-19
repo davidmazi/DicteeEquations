@@ -29,6 +29,7 @@ var contentLoadedHandler = function() {
 
     startRecognizeOnceAsyncButton.addEventListener("click", function() {
       startRecognizeOnceAsyncButton.disabled = true;
+      clearLatexCodeText();
 
       // if we got an authorization token, use the token. Otherwise use the provided subscription key
       var speechConfig;
@@ -47,7 +48,6 @@ var contentLoadedHandler = function() {
       speechConfig.speechRecognitionLanguage = "fr-FR";
       var audioConfig = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
       recognizer = new SpeechSDK.SpeechRecognizer(speechConfig, audioConfig);
-      clearLatexCodeText();
       recognizeSpeech(recognizer);
     });
 
@@ -75,7 +75,7 @@ function recognizeSpeech(recognizer) {
         ? changeLatexCodeText(
             latex(format(result.text.substring(0, result.text.indexOf("fin"))))
           )
-        : changeLatexCodeText(latex(format(result.text + " ")));
+        : changeLatexCodeText(latex(format(result.text.slice(0, -1) + " ")));
 
       if (!result.text.toLowerCase().includes("fin")) {
         return recognizeSpeech(recognizer);
@@ -86,8 +86,7 @@ function recognizeSpeech(recognizer) {
     },
     function(err) {
       startRecognizeOnceAsyncButton.disabled = false;
-      changeLatexCodeText(err);
-      window.console.log(err);
+      window.console.warn(err);
 
       recognizer.close();
       recognizer = undefined;
