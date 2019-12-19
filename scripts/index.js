@@ -57,6 +57,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 function recognizeSpeech(recognizer) {
+  startRecognizeOnceAsyncButton.disabled = true;
   recognizer.recognizeOnceAsync(
     function(result) {
       startRecognizeOnceAsyncButton.disabled = false;
