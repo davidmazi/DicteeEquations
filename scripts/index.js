@@ -18,6 +18,7 @@ var contentLoadedHandler = function() {
     startRecognizeOnceAsyncButton = document.getElementById(
       "startRecognizeOnceAsyncButton"
     );
+    latexElement = document.getElementById("latex-code-text");
     subscriptionKey = config.apiKey;
     serviceRegion = "westus";
 
@@ -76,10 +77,12 @@ function recognizeSpeech(recognizer) {
             latex(format(result.text.substring(0, result.text.indexOf("fin"))))
           )
         : changeLatexCodeText(latex(format(result.text.slice(0, -1) + " ")));
-
+      latexToImage();
       if (!result.text.toLowerCase().includes("fin")) {
         return recognizeSpeech(recognizer);
       }
+
+      reloadMathJax();
 
       recognizer.close();
       recognizer = undefined;
@@ -102,4 +105,32 @@ function changeLatexCodeText(textToPrint) {
 function clearLatexCodeText() {
   element = document.getElementById("latex-code-text");
   element.innerHTML = "";
+}
+
+function latexToImage() {
+  latexElement = document.getElementById("latex-code-text");
+  imageElement = document.getElementById("latex-image");
+  imageElement.innerHTML = `$$${latexElement.innerHTML}$$`;
+}
+
+function reloadMathJax() {
+  console.log("reloading");
+  var script = document.createElement("script");
+  script.type = "text/javascript";
+  script.src = "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"; // use the location of your MathJax
+
+  var config =
+    "MathJax.Hub.Config({" +
+    'extensions: ["tex2jax.js"],' +
+    'jax: ["input/TeX","output/HTML-CSS"]' +
+    "});" +
+    "MathJax.Hub.Startup.onload();";
+
+  if (window.opera) {
+    script.innerHTML = config;
+  } else {
+    script.text = config;
+  }
+
+  document.getElementsByTagName("head")[0].appendChild(script);
 }
