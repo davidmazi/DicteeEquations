@@ -72,17 +72,24 @@ function recognizeSpeech(recognizer) {
     function(result) {
       startRecognizeOnceAsyncButton.disabled = false;
       console.log(`Resultat MS : ${result.text}`);
-      result.text.toLowerCase().includes("fin" || "faim")
-        ? changeLatexCodeText(
-            latex(
-              format(
-                result.text.substring(0, result.text.indexOf("fin" || "faim"))
-              )
-            )
-          )
-        : changeLatexCodeText(latex(format(result.text.slice(0, -1) + " ")));
-      latexToImage();
-      if (!result.text.toLowerCase().includes("fin" || "faim")) {
+      if (
+        result.text.toLowerCase().includes("fin") ||
+        result.text.toLowerCase().includes("faim")
+      ) {
+        const endWord = result.text.toLowerCase().includes("fin")
+          ? "fin"
+          : "faim";
+        changeLatexCodeText(
+          latex(format(result.text.substring(0, result.text.indexOf(endWord))))
+        );
+      } else changeLatexCodeText(latex(format(result.text.slice(0, -1) + " ")));
+
+      latexToImageElement();
+
+      if (
+        !result.text.toLowerCase().includes("fin") &&
+        !result.text.toLowerCase().includes("faim")
+      ) {
         return recognizeSpeech(recognizer);
       }
 
@@ -111,7 +118,7 @@ function clearLatexCodeText() {
   element.innerHTML = "";
 }
 
-function latexToImage() {
+function latexToImageElement() {
   latexElement = document.getElementById("latex-code-text");
   imageElement = document.getElementById("latex-image");
   imageElement.innerHTML = `$$${latexElement.innerHTML}$$`;
