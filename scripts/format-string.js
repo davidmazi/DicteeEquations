@@ -7,6 +7,7 @@ function initDicoOp() {
   // ----------------Symboles----------------
   dicoOp.set("un", "1");
   dicoOp.set("deux", "2");
+  dicoOp.set("de", "2");
 
   dicoOp.set("plus", "+");
   dicoOp.set("moins", "-");
@@ -38,6 +39,7 @@ function initDicoOp() {
   dicoOp.set("multiplie", "fois");
   dicoOp.set("multiplies", "fois");
   dicoOp.set("multiplient", "fois");
+  dicoOp.set("fois", "fois");
 
   dicoOp.set("divisé", "div");
   dicoOp.set("divisés", "div");
@@ -82,8 +84,9 @@ function initDicoOp() {
   dicoOp.set("indexée", "index");
   dicoOp.set("indexées", "index");
 
-  dicoOp.set("indice", "indice");
-  dicoOp.set("indices", "indice");
+  dicoOp.set("indice", "petit");
+  dicoOp.set("indices", "petit");
+  dicoOp.set("petit", "petit");
 
   dicoOp.set("puissance", "puissance");
   dicoOp.set("puissances", "puissance");
@@ -92,6 +95,11 @@ function initDicoOp() {
   dicoOp.set("intégrals", "intégrale");
   dicoOp.set("intégrale", "intégrale");
   dicoOp.set("intégrales", "intégrale");
+
+  dicoOp.set("vers", "vers");
+  dicoOp.set("vert", "vers");
+  dicoOp.set("verre", "vers");
+  dicoOp.set("ver", "vers");
 
   dicoOp.set("somme", "somme");
   dicoOp.set("sommes", "somme");
@@ -134,25 +142,36 @@ function initDicoOp() {
  * @returns {string[]} L'équation formatée
  */
 function format(rawEquation) {
+  rawEquation = rawEquation.replace(/,/gi, "");
+  rawEquation = rawEquation.replace(/./gi, "");
   var rawEquationTab = rawEquation.toLowerCase().split(" ");
   var formatEquation = [];
   var parentheseOrCrochet = "";
   for (var i = 0; i < rawEquationTab.length; i++) {
     var equationElem = rawEquationTab[i];
     if (isNaN(equationElem)) {
+      //si c'est pas un nombre
       if (dicoOp.get(rawEquationTab[i]) == "parenthese")
+        //si c'est une parenthèse alors on prépare le suivant
         parentheseOrCrochet = "p";
       else if (dicoOp.get(rawEquationTab[i]) == "crochet")
+        //si c'est un crochet on prépare le suivant
         parentheseOrCrochet = "c";
       else {
+        //si c'est ni parenthese ou crochet
         if (
-          parentheseOrCrochet.length != 0 &&
+          parentheseOrCrochet.length != 0 && //si avant c'était une parenthese ou crochet
           (dicoOp.get(rawEquationTab[i]) == "open" ||
-            dicoOp.get(rawEquationTab[i]) == "closed")
+            dicoOp.get(rawEquationTab[i]) == "closed") //on ajoute le bon sens
         ) {
-          equationElem = parentheseOrCrochet + dicoOp.get(rawEquationTab[i]);
+          equationElem = parentheseOrCrochet + dicoOp.get(rawEquationTab[i]); // alors on ajoute le caractère
         } else {
-          equationElem = dicoOp.get(rawEquationTab[i]);
+          if (rawEquationTab[i].length == 1) {
+            //si le caractère ne fait que 1 de long on le garde même si il est pas dans le dico
+            equationElem = rawEquationTab[i];
+          } else {
+            equationElem = dicoOp.get(rawEquationTab[i]); //sinon on récupère la valeur du dico si elle existe
+          }
         }
         parentheseOrCrochet = "";
       }

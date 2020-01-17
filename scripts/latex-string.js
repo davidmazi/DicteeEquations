@@ -12,18 +12,19 @@ function initDicoSymboleLatex() {
   dicoSymboleLatex.set("sept", "7");
   dicoSymboleLatex.set("huit", "8");
   dicoSymboleLatex.set("neuf", "9");
+  dicoSymboleLatex.set("à", "a");
 
   dicoSymboleLatex.set("ne", "\\ne");
   dicoSymboleLatex.set("pi", "\\pi");
   dicoSymboleLatex.set("fois", "*");
   dicoSymboleLatex.set("div", "\\div");
   dicoSymboleLatex.set("sur", "}{");
-  dicoSymboleLatex.set("pOpen", "(");
-  dicoSymboleLatex.set("pClosed", ")");
-  dicoSymboleLatex.set("cOpen", "[");
-  dicoSymboleLatex.set("cClosed", "]");
+  dicoSymboleLatex.set("popen", "(");
+  dicoSymboleLatex.set("pclosed", ")");
+  dicoSymboleLatex.set("copen", "[");
+  dicoSymboleLatex.set("cclosed", "]");
   dicoSymboleLatex.set("index", "_{");
-  dicoSymboleLatex.set("indice", "_");
+  dicoSymboleLatex.set("petit", "_");
   dicoSymboleLatex.set("puissance", "^");
   dicoSymboleLatex.set("intégrale", "\\int");
   dicoSymboleLatex.set("somme", "\\sum");
@@ -31,7 +32,7 @@ function initDicoSymboleLatex() {
 function initDicoExpressionLatex() {
   dicoExpressionLatex.set("racine", "\\sqrt{");
   dicoExpressionLatex.set("fraction", "\\frac{");
-  dicoExpressionLatex.set("à", "}^{");
+  dicoExpressionLatex.set("vers", "}^{");
 }
 function initDicoSequenceurLatex() {
   dicoSequenceurLatex.set("stop", "}");
@@ -51,10 +52,13 @@ function latex(formatEquation) {
   var latexEquation = "";
   var compteurAccoladesFin = 0;
   for (var i = 0; i < formatEquation.length; i++) {
+    //pour toute l'équation
     var equationElem = formatEquation[i];
     if (dicoSymboleLatex.has(equationElem)) {
+      //si le mot est dans le dico des symboles
       latexEquation += dicoSymboleLatex.get(formatEquation[i]);
     } else if (dicoExpressionLatex.has(equationElem)) {
+      //sinon si il est dans le dico des expressions (nécéssite de fermer l'accolade)
       latexEquation += dicoExpressionLatex.get(formatEquation[i]);
       compteurAccoladesFin++;
     } else if (dicoSequenceurLatex.has(equationElem)) {
