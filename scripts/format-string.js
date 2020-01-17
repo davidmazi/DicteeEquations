@@ -143,7 +143,7 @@ function initDicoOp() {
  */
 function format(rawEquation) {
   rawEquation = rawEquation.replace(/,/gi, "");
-  rawEquation = rawEquation.replace(/./gi, "");
+  // rawEquation = rawEquation.replace(/./gi, "");
   var rawEquationTab = rawEquation.toLowerCase().split(" ");
   var formatEquation = [];
   var parentheseOrCrochet = "";
