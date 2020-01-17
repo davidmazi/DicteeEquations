@@ -72,13 +72,17 @@ function recognizeSpeech(recognizer) {
     function(result) {
       startRecognizeOnceAsyncButton.disabled = false;
       console.log(`Resultat MS : ${result.text}`);
-      result.text.toLowerCase().includes("fin")
+      result.text.toLowerCase().includes("fin" || "faim")
         ? changeLatexCodeText(
-            latex(format(result.text.substring(0, result.text.indexOf("fin"))))
+            latex(
+              format(
+                result.text.substring(0, result.text.indexOf("fin" || "faim"))
+              )
+            )
           )
         : changeLatexCodeText(latex(format(result.text.slice(0, -1) + " ")));
       latexToImage();
-      if (!result.text.toLowerCase().includes("fin")) {
+      if (!result.text.toLowerCase().includes("fin" || "faim")) {
         return recognizeSpeech(recognizer);
       }
 
