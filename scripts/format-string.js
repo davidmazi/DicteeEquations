@@ -24,6 +24,7 @@ function initDicoOp() {
   dicoOp.set("factorielles", "!");
 
   dicoOp.set("différent", "ne");
+  dicoOp.set("différents", "ne");
   dicoOp.set("inégal", "ne");
   dicoOp.set("inégals", "ne");
   dicoOp.set("inégale", "ne");
