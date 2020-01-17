@@ -74,6 +74,7 @@ function initDicoOp() {
   dicoOp.set("fermant", "closed");
   dicoOp.set("fermante", "closed");
   dicoOp.set("fermantes", "closed");
+  dicoOp.set("fermer", "closed");
 
   dicoOp.set("index", "index");
   dicoOp.set("indexe", "index");
@@ -151,29 +152,33 @@ function format(rawEquation) {
     var equationElem = rawEquationTab[i];
     if (isNaN(equationElem)) {
       //si c'est pas un nombre
-      if (dicoOp.get(rawEquationTab[i]) == "parenthese")
+      if (dicoOp.get(rawEquationTab[i]) == "parenthese") {
         //si c'est une parenthèse alors on prépare le suivant
         parentheseOrCrochet = "p";
-      else if (dicoOp.get(rawEquationTab[i]) == "crochet")
-        //si c'est un crochet on prépare le suivant
-        parentheseOrCrochet = "c";
-      else {
-        //si c'est ni parenthese ou crochet
-        if (
-          parentheseOrCrochet.length != 0 && //si avant c'était une parenthese ou crochet
-          (dicoOp.get(rawEquationTab[i]) == "open" ||
-            dicoOp.get(rawEquationTab[i]) == "closed") //on ajoute le bon sens
-        ) {
-          equationElem = parentheseOrCrochet + dicoOp.get(rawEquationTab[i]); // alors on ajoute le caractère
+        equationElem = undefined;
+      } else {
+        if (dicoOp.get(rawEquationTab[i]) == "crochet") {
+          //si c'est un crochet on prépare le suivant
+          parentheseOrCrochet = "c";
+          equationElem = undefined;
         } else {
-          if (rawEquationTab[i].length == 1) {
-            //si le caractère ne fait que 1 de long on le garde même si il est pas dans le dico
-            equationElem = rawEquationTab[i];
+          //si c'est ni parenthese ou crochet
+          if (
+            parentheseOrCrochet.length != 0 && //si avant c'était une parenthese ou crochet
+            (dicoOp.get(rawEquationTab[i]) == "open" ||
+              dicoOp.get(rawEquationTab[i]) == "closed") //on ajoute le bon sens
+          ) {
+            equationElem = parentheseOrCrochet + dicoOp.get(rawEquationTab[i]); // alors on ajoute le caractère
           } else {
-            equationElem = dicoOp.get(rawEquationTab[i]); //sinon on récupère la valeur du dico si elle existe
+            if (rawEquationTab[i].length == 1) {
+              //si le caractère ne fait que 1 de long on le garde même si il est pas dans le dico
+              equationElem = rawEquationTab[i];
+            } else {
+              equationElem = dicoOp.get(rawEquationTab[i]); //sinon on récupère la valeur du dico si elle existe
+            }
           }
+          parentheseOrCrochet = "";
         }
-        parentheseOrCrochet = "";
       }
     }
 
